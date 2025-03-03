@@ -1,0 +1,23 @@
+.buttons-container {
+	display: grid;
+	padding: 40px 40px;
+	grid-template-columns: 80px 80px 80px;
+	justify-content: center;
+	gap: 0px;
+}
+
+.button {
+	color: black;
+	font-size: 22px;
+	width: 80px;
+	height: 80px;
+	border: 1px solid black;
+}
+
+.button:hover:enabled {
+	background-color: #9c9696;
+}
+
+.button:disabled {
+	color: black;
+}
