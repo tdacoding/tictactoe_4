@@ -6,18 +6,20 @@ import PropTypes from 'prop-types';
 const GameLayout = (props) => {
 	return (
 		<div className={styles['game']}>
-			<Information {...props} />
-			<Field {...props} />
+			<Information
+				isDraw={props.isDraw}
+				isGameEnded={isGameEnded}
+				currentPlayer={currentPlayer}
+			/>
+			<Field
+				field={props.field}
+				isDraw={props.isDraw}
+				isGameEnded={isGameEnded}
+				currentPlayer={currentPlayer}
+			/>
 			<NewGame {...props} />
 		</div>
 	);
-};
-
-GameLayout.propTypes = {
-	field: PropTypes.array,
-	isDraw: PropTypes.bool,
-	isGameEnded: PropTypes.bool,
-	currentPlayer: PropTypes.string,
 };
 
 export function Game() {
