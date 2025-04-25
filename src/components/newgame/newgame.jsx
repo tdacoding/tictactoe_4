@@ -1,25 +1,12 @@
 import styles from './newgame.module.css';
+import { store } from '../../store';
 
-const reset = ({
-	setCurrentPlayer,
-	setIsGameEnded,
-	setIsDraw,
-	setField,
-	setMovesNumber,
-}) => {
-	setCurrentPlayer('X');
-	setIsGameEnded(false);
-	setIsDraw(false);
-	setField(['', '', '', '', '', '', '', '', '']);
-	setMovesNumber(9);
-};
-
-export const NewGame = (props) => {
+export const NewGame = () => {
 	return (
 		<button
 			className={styles['newGameButton']}
 			onClick={() => {
-				reset(props);
+				store.dispatch({ type: 'newGame' });
 			}}
 		>
 			New Game

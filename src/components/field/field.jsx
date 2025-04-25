@@ -1,46 +1,9 @@
 import styles from './field.module.css';
-import PropTypes from 'prop-types';
+import { store } from '../../store';
 
-const FieldLayout = ({ field, hasMoved, isGameEnded }) => {
+export const Field = () => {
+	const { field, currentPlayer, movesNumber, isGameEnded, isDraw } = store.getState();
 	const INDX = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-	return (
-		<div className={styles['buttons-container']}>
-			{INDX.map((ind) => {
-				return (
-					<button
-						className={styles.button}
-						key={ind}
-						disabled={field[ind] || isGameEnded}
-						onClick={() => {
-							hasMoved(ind);
-						}}
-					>
-						{field[ind]}
-					</button>
-				);
-			})}
-		</div>
-	);
-};
-
-FieldLayout.propTypes = {
-	field: PropTypes.array,
-	hasMoved: PropTypes.func,
-};
-
-export const Field = (props) => {
-	const {
-		field,
-		setField,
-		currentPlayer,
-		setCurrentPlayer,
-		movesNumber,
-		setMovesNumber,
-		isGameEnded,
-		setIsGameEnded,
-		isDraw,
-		setIsDraw,
-	} = { ...props };
 	const WIN_PATTERNS = [
 		[0, 1, 2],
 		[3, 4, 5],
@@ -69,37 +32,41 @@ export const Field = (props) => {
 	const hasMoved = (ind) => {
 		if (!isGameEnded && !isDraw) {
 			const moves = movesNumber - 1;
-			setMovesNumber((movesNumber) => movesNumber - 1);
+			store.dispatch({ type: 'setMovesNumber', payload: movesNumber - 1 });
 			const newField = [...field];
 			newField[ind] = currentPlayer;
-			setField(newField);
+			store.dispatch({ type: 'setField', payload: newField });
 			if (hasWinner(newField)) {
-				setIsGameEnded(true);
+				store.dispatch({ type: 'setIsGameEnded', payload: true });
 				return;
 			}
 			if (moves == 0) {
-				setIsDraw(true);
+				store.dispatch({ type: 'setIsDraw', payload: true });
 				return;
 			}
-			setCurrentPlayer((currentPlayer) => (currentPlayer === 'X' ? '0' : 'X'));
+			store.dispatch({
+				type: 'setCurrentPlayer',
+				payload: currentPlayer === 'X' ? '0' : 'X',
+			});
 		}
 	};
-	return (
-		<FieldLayout
-			field={props.field}
-			hasMoved={hasMoved}
-			isGameEnded={props.isGameEnded}
-		/>
-	);
-};
 
-Field.propTypes = {
-	field: PropTypes.array,
-	isDraw: PropTypes.bool,
-	isGameEnded: PropTypes.bool,
-	currentPlayer: PropTypes.string,
-	setCurrentPlayer: PropTypes.func,
-	setIsGameEnded: PropTypes.func,
-	setIsDraw: PropTypes.func,
-	setField: PropTypes.func,
+	return (
+		<div className={styles['buttons-container']}>
+			{INDX.map((ind) => {
+				return (
+					<button
+						className={styles.button}
+						key={ind}
+						disabled={field[ind] || isGameEnded}
+						onClick={() => {
+							hasMoved(ind);
+						}}
+					>
+						{field[ind]}
+					</button>
+				);
+			})}
+		</div>
+	);
 };
