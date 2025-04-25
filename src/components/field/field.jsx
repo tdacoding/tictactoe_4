@@ -1,8 +1,8 @@
 import styles from './field.module.css';
 import { store } from '../../store';
 
-export const Field = () => {
-	const { field, currentPlayer, movesNumber, isGameEnded, isDraw } = store.getState();
+export const Field = ({ actualState }) => {
+	const { field, currentPlayer, movesNumber, isGameEnded, isDraw } = actualState;
 	const INDX = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 	const WIN_PATTERNS = [
 		[0, 1, 2],

@@ -1,8 +1,8 @@
 import styles from './information.module.css';
 import { store } from '../../store';
 
-export const Information = () => {
-	const { isDraw, isGameEnded, currentPlayer } = store.getState();
+export const Information = ({ actualState }) => {
+	const { isDraw, isGameEnded, currentPlayer } = actualState;
 	return (
 		<div className={styles['informationDiv']}>
 			<div className={styles['information']}>
