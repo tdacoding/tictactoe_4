@@ -1,12 +1,13 @@
 import styles from './newgame.module.css';
-import { store } from '../../store';
+import { useDispatch } from 'react-redux';
 
 export const NewGame = () => {
+	const dispatch = useDispatch();
 	return (
 		<button
 			className={styles['newGameButton']}
 			onClick={() => {
-				store.dispatch({ type: 'newGame' });
+				dispatch({ type: 'newGame' });
 			}}
 		>
 			New Game

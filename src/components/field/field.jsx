@@ -1,8 +1,13 @@
 import styles from './field.module.css';
-import { store } from '../../store';
+import { useSelector, useDispatch } from 'react-redux';
 
-export const Field = ({ actualState }) => {
-	const { field, currentPlayer, movesNumber, isGameEnded, isDraw } = actualState;
+export const Field = () => {
+	const dispatch = useDispatch();
+	const isDraw = useSelector((state) => state.isDraw);
+	const isGameEnded = useSelector((state) => state.isGameEnded);
+	const currentPlayer = useSelector((state) => state.currentPlayer);
+	const field = useSelector((state) => state.field);
+	const movesNumber = useSelector((state) => state.movesNumber);
 	const INDX = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 	const WIN_PATTERNS = [
 		[0, 1, 2],
@@ -32,19 +37,19 @@ export const Field = ({ actualState }) => {
 	const hasMoved = (ind) => {
 		if (!isGameEnded && !isDraw) {
 			const moves = movesNumber - 1;
-			store.dispatch({ type: 'setMovesNumber', payload: movesNumber - 1 });
+			dispatch({ type: 'setMovesNumber', payload: movesNumber - 1 });
 			const newField = [...field];
 			newField[ind] = currentPlayer;
-			store.dispatch({ type: 'setField', payload: newField });
+			dispatch({ type: 'setField', payload: newField });
 			if (hasWinner(newField)) {
-				store.dispatch({ type: 'setIsGameEnded', payload: true });
+				dispatch({ type: 'setIsGameEnded', payload: true });
 				return;
 			}
 			if (moves == 0) {
-				store.dispatch({ type: 'setIsDraw', payload: true });
+				dispatch({ type: 'setIsDraw', payload: true });
 				return;
 			}
-			store.dispatch({
+			dispatch({
 				type: 'setCurrentPlayer',
 				payload: currentPlayer === 'X' ? '0' : 'X',
 			});
