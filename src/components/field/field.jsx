@@ -1,4 +1,3 @@
-import styles from './field.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 
 export const Field = () => {
@@ -57,11 +56,11 @@ export const Field = () => {
 	};
 
 	return (
-		<div className={styles['buttons-container']}>
+		<div className="grid grid-cols-3 pad-0 py-5 ">
 			{INDX.map((ind) => {
 				return (
 					<button
-						className={styles.button}
+						className="h-15 w-15 bg-white hover:bg-gray-100 text-gray-800 border border-gray-400 shadow"
 						key={ind}
 						disabled={field[ind] || isGameEnded}
 						onClick={() => {

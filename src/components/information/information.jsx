@@ -1,4 +1,3 @@
-import styles from './information.module.css';
 import { useSelector } from 'react-redux';
 
 export const Information = () => {
@@ -6,14 +5,12 @@ export const Information = () => {
 	const isGameEnded = useSelector((state) => state.isGameEnded);
 	const currentPlayer = useSelector((state) => state.currentPlayer);
 	return (
-		<div className={styles['informationDiv']}>
-			<div className={styles['information']}>
-				{isDraw
-					? 'Ничья'
-					: isGameEnded
-						? `Победа: ${currentPlayer}`
-						: `Ходит: ${currentPlayer}`}
-			</div>
+		<div className="w-80 text-center">
+			{isDraw
+				? 'Ничья'
+				: isGameEnded
+					? `Победа: ${currentPlayer}`
+					: `Ходит: ${currentPlayer}`}
 		</div>
 	);
 };
